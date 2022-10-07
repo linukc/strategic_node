@@ -1,0 +1,3 @@
+[submodule "src/communication_msgs"]
+	path = src/communication_msgs
+	url = https://github.com/linukc/communication_msgs
