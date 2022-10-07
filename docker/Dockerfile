@@ -1,7 +1,8 @@
 FROM osrf/ros:noetic-desktop-full
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
-    DEBIAN_FRONTEND="noninteractive" \\
     apt-get -y install tzdata && \
     rm -rf /var/lib/apt/lists/*
 
@@ -25,5 +26,11 @@ RUN useradd -m ${USER} --uid=${UID} \
 
 RUN pip3 install pre-commit pylint && \
     echo PATH=$PATH:/home/docker_user/.local/bin >> ~/.bashrc
+
+RUN apt-get update && \
+    apt-get install -y ros-noetic-actionlib-tools && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install flask
 
 WORKDIR /home/${USER}
