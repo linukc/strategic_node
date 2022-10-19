@@ -47,46 +47,46 @@ def main():
                                 transitions={'move_to_point':'move_to_point_ACTION'})
 
         smach.StateMachine.add('move_to_point_ACTION',
-                                SimpleActionState('tx2_action_server',
-                                    Action.MoveToPoint,
-                                    goal=Action.MoveToPoineGoal(x=-87, y=-12)),
+                                SimpleActionState('move_to_point',
+                                    Action.MoveToPointAction,
+                                    goal=Action.MoveToPointGoal(x=-89, y=-11.5)),
                                     transitions={'succeeded': 'navigation_ACTION_1',
                                                  'preempted': 'finish',
                                                  'aborted': 'finish'})
 
         smach.StateMachine.add('navigation_ACTION_1',
                                 SimpleActionState('navigate_2d',
-                                    Action.Navigate2D,
+                                    Action.Navigate2DAction,
                                     goal=Action.Navigate2DGoal(goal="makeparking")),
-                                    transitions={'succeeded': 'open_the_door_SERVICE',
+                                    transitions={'succeeded': 'navigation_ACTION_2',
                                                  'preempted': 'finish',
                                                  'aborted': 'finish'})
 
-        smach.StateMachine.add('open_the_door_SERVICE',
-                                ServiceState('OpenDoor',
-                                    Service.OpenDoor,
-                                    request = Service.OpenDoor('right',
-                                                               'pull',
-                                                                PointStamped(),
-                                                               'some debug string')),
-                                    transitions={'succeeded': 'navigation_ACTION_2'})
+        # smach.StateMachine.add('open_the_door_SERVICE',
+        #                         ServiceState('OpenDoor',
+        #                             Service.OpenDoor,
+        #                             request = Service.OpenDoor('right',
+        #                                                        'pull',
+        #                                                         PointStamped(),
+        #                                                        'some debug string')),
+        #                             transitions={'succeeded': 'navigation_ACTION_2'})
 
         smach.StateMachine.add('navigation_ACTION_2',
                                 SimpleActionState('navigate_2d',
-                                    Action.Navigate2D,
+                                    Action.Navigate2DAction,
                                     goal=Action.Navigate2DGoal(goal="opendoor")),
-                                    transitions={'succeeded': 'detach_gripper_SERVICE',
+                                    transitions={'succeeded': 'navigation_ACTION_3',
                                                  'preempted': 'finish',
                                                  'aborted': 'finish'})
 
-        smach.StateMachine.add('detach_gripper_SERVICE',
-                                ServiceState('DetachGripper',
-                                    Service.DetachGripper),
-                                    transitions={'succeeded': 'navigation_ACTION_3'})
+        # smach.StateMachine.add('detach_gripper_SERVICE',
+        #                         ServiceState('DetachGripper',
+        #                             Service.DetachGripper),
+        #                             transitions={'succeeded': 'navigation_ACTION_3'})
 
         smach.StateMachine.add('navigation_ACTION_3',
                                 SimpleActionState('navigate_2d',
-                                    Action.Navigate2D,
+                                    Action.Navigate2DAction,
                                     goal=Action.Navigate2DGoal(goal="gotoroom")),
                                     transitions={'succeeded': 'finish',
                                                  'preempted': 'finish',
