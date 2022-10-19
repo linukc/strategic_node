@@ -10,5 +10,5 @@ repos:
         [
           "-rn", # Only display messages
           "-sn", # Don't display the score
-          "--ignored-modules=communication_msgs.msg"
+          "--ignored-modules=communication_msgs.msg, communication_msgs.srv"
         ]

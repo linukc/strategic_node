@@ -1,13 +1,14 @@
 FROM osrf/ros:noetic-desktop-full
 
 ARG DEBIAN_FRONTEND=noninteractive
+RUN chmod 1777 /tmp
 
 RUN apt-get update && \
-    apt-get -y install tzdata && \
+    apt-get -y install --no-install-recommends tzdata && \
     rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && \
-    apt-get install -y git \
+    apt-get install -y --no-install-recommends git \
                        python3-pip \
                        ros-noetic-smach-viewer && \
     rm -rf /var/lib/apt/lists/*
@@ -28,7 +29,7 @@ RUN pip3 install pre-commit pylint && \
     echo PATH=$PATH:/home/docker_user/.local/bin >> ~/.bashrc
 
 RUN apt-get update && \
-    apt-get install -y ros-noetic-actionlib-tools && \
+    apt-get install -y --no-install-recommends ros-noetic-actionlib-tools && \
     rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install flask
