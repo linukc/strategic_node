@@ -28,7 +28,7 @@ def default():
 @app.route('/upload_intent', methods = ['POST'])
 def info():
     '''intercept commands from dream intent catcher'''
-    rospy.loginfo(request.data)
+    rospy.loginfo(str(request.data))
     pub.publish("go to 525 room")
     return jsonify({"status": "ok"})
 

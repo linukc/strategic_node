@@ -49,7 +49,7 @@ def main():
         smach.StateMachine.add('move_to_point_ACTION',
                                 SimpleActionState('move_to_point',
                                     Action.MoveToPointAction,
-                                    goal=Action.MoveToPointGoal(x=-89, y=-11.5)),
+                                    goal=Action.MoveToPointGoal(x=-89, y=-12)),
                                     transitions={'succeeded': 'navigation_ACTION_1',
                                                  'preempted': 'finish',
                                                  'aborted': 'finish'})
@@ -58,31 +58,36 @@ def main():
                                 SimpleActionState('navigate_2d',
                                     Action.Navigate2DAction,
                                     goal=Action.Navigate2DGoal(goal="makeparking")),
-                                    transitions={'succeeded': 'navigation_ACTION_2',
+                                    transitions={'succeeded': 'open_the_door_SERVICE',
                                                  'preempted': 'finish',
                                                  'aborted': 'finish'})
 
-        # smach.StateMachine.add('open_the_door_SERVICE',
-        #                         ServiceState('OpenDoor',
-        #                             Service.OpenDoor,
-        #                             request = Service.OpenDoor('right',
-        #                                                        'pull',
-        #                                                         PointStamped(),
-        #                                                        'some debug string')),
-        #                             transitions={'succeeded': 'navigation_ACTION_2'})
+        request = Service.OpenDoorRequest('right',
+                                          'pull',
+                                          PointStamped(),
+                                          'some debug string')
+        smach.StateMachine.add('open_the_door_SERVICE',
+                                ServiceState('OpenDoor',
+                                    Service.OpenDoor,
+                                    request = request),
+                                    transitions={'succeeded': 'navigation_ACTION_2',
+                                                 'preempted': 'finish',
+                                                 'aborted': 'finish'})
 
         smach.StateMachine.add('navigation_ACTION_2',
                                 SimpleActionState('navigate_2d',
                                     Action.Navigate2DAction,
                                     goal=Action.Navigate2DGoal(goal="opendoor")),
-                                    transitions={'succeeded': 'navigation_ACTION_3',
+                                    transitions={'succeeded': 'detach_gripper_SERVICE',
                                                  'preempted': 'finish',
                                                  'aborted': 'finish'})
 
-        # smach.StateMachine.add('detach_gripper_SERVICE',
-        #                         ServiceState('DetachGripper',
-        #                             Service.DetachGripper),
-        #                             transitions={'succeeded': 'navigation_ACTION_3'})
+        smach.StateMachine.add('detach_gripper_SERVICE',
+                                ServiceState('DetachGripper',
+                                    Service.DetachGripper),
+                                    transitions={'succeeded': 'navigation_ACTION_3',
+                                                 'preempted': 'finish',
+                                                 'aborted': 'finish'})
 
         smach.StateMachine.add('navigation_ACTION_3',
                                 SimpleActionState('navigate_2d',
