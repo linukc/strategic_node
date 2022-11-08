@@ -22,12 +22,14 @@ import communication_msgs.srv as Service
 class BottleNeck(smach.State):
     '''BottleNeck state'''
     def __init__(self):
-        smach.State.__init__(self, outcomes=['move_to_point'])
+        smach.State.__init__(self, outcomes=['move_to_point'],
+                                   output_keys=['x', 'y'])
 
     def execute(self, ud):
         rospy.loginfo('Executing state BottleNeck')
         command = rospy.wait_for_message('/commands_from_dream', String)
         rospy.loginfo(command.data)
+        ud.x, ud.y = map(int, command.data.split())
         return 'move_to_point'
 
 # main
@@ -49,7 +51,7 @@ def main():
         smach.StateMachine.add('move_to_point_ACTION',
                                 SimpleActionState('move_to_point',
                                     Action.MoveToPointAction,
-                                    goal=Action.MoveToPointGoal(x=-89, y=-12)),
+                                    goal_slots=["x", "y"]),
                                     transitions={'succeeded': 'navigation_ACTION_1',
                                                  'preempted': 'finish',
                                                  'aborted': 'finish'})
