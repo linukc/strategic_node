@@ -41,13 +41,14 @@ def info():
         if data in mapping:
             data = str(mapping.get(data))
     
-    rospy.loginfo(data)
-    try:
-        a, b = map(float, data.split(' ')) #ПРОВЕРКА ЧТО ЭТО КООДРИНАТЫ
-        pub.publish(data)
-    except:
-        rospy.loginfo("can't send text")
+        rospy.loginfo(data)
+        try:
+            a, b = map(float, data.split(' ')) #ПРОВЕРКА ЧТО ЭТО КООДРИНАТЫ
+            pub.publish(data)
+        except:
+            rospy.loginfo("can't send text")
 
+    pub.publish(data)
     return jsonify({"status": "ok"})
 
 if __name__ == '__main__':
