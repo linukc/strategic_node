@@ -47,8 +47,8 @@ def main():
                                     Action.SimpleCommandAction,
                                     goal_slots=["command"]),
                                     transitions={'succeeded': 'BottleNeck',
-                                                 'preempted': 'finish',
-                                                 'aborted': 'finish'})
+                                                 'preempted': 'BottleNeck',
+                                                 'aborted': 'BottleNeck'})
 
     # Create and start the introspection server
     #sis = smach_ros.IntrospectionServer('my_smach_introspection_server', state_machine, '/SM_ROOT')
