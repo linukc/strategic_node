@@ -38,9 +38,16 @@ def info():
 
     if data.startswith("move_to_point"):
         data = postprocess_movetopoint(data)
-        rospy.loginfo(data)
+        if data in mapping:
+            data = str(mapping.get(data))
+    
+    rospy.loginfo(data)
+    try:
+        a, b = map(float, data.split(' ')) #ПРОВЕРКА ЧТО ЭТО КООДРИНАТЫ
+        pub.publish(data)
+    except:
+        rospy.loginfo("can't send text")
 
-    pub.publish(str(mapping.get(data)))
     return jsonify({"status": "ok"})
 
 if __name__ == '__main__':
