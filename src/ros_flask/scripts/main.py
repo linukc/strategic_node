@@ -44,7 +44,7 @@ def info():
         rospy.loginfo(mtp_data)
         try:
             a, b = map(float, mtp_data.split(' ')) #ПРОВЕРКА ЧТО ЭТО КООДРИНАТЫ
-            pub.publish(mtp_data)
+            pub.publish(f"mtp {mtp_data}")
         except:
             rospy.loginfo("can't send text")
     else:
