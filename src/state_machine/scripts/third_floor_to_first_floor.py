@@ -41,6 +41,18 @@ def main():
 
     # Open the container
     with state_machine:
+<<<<<<< HEAD
+=======
+        # Add states to the container
+        smach.StateMachine.add('move_to_point_ACTION_1',
+                                SimpleActionState('move_to_point',
+                                    Action.MoveToPointAction,
+                                    goal=Action.MoveToPointGoal(**metadata.get("third_floor_lift_coord")),
+                                    result_slots=["x1", "y1", "x2", "y2"]),
+                                transitions={'succeeded': 'door_coord_ACTION_1',
+                                             'preempted': 'finish',
+                                             'aborted': 'finish'})
+>>>>>>> 6dc32ae614aa3ffaa80d50647b7a371d484aa016
 
         smach.StateMachine.add('door_coord_ACTION_1',
                         SimpleActionState('door_coord',
@@ -150,7 +162,7 @@ def main():
                                     request = Service.PushButtonRequest(
                                         lmr=metadata.get("floor_sign_position_in_lift"),
                                         symbol=metadata.get("floor_sign_in_lift"))),
-                                transitions={'succeeded': 'finish',
+                                transitions={'succeeded': 'Lift_door_bottleneck_2',
                                              'preempted': 'finish',
                                              'aborted': 'finish'})
 
@@ -166,13 +178,25 @@ def main():
                                              'preempted': 'finish',
                                              'aborted': 'finish'})
 
-        smach.StateMachine.add('move_to_point_ACTION_2',
-                                SimpleActionState('move_to_point',
-                                    Action.MoveToPointAction,
-                                    goal=Action.MoveToPointActionGoal(**metadata.get("first_floor_coord")),
-                                transitions={'succeeded': 'finish',
-                                             'preempted': 'finish',
-                                             'aborted': 'finish'}))
+        # smach.StateMachine.add('Lift_door_bottleneck_2',
+        #                         Lift_door_bottleneck(),
+        #                         transitions={'lift_passing':'navigation_ACTION_6'})
+
+        # smach.StateMachine.add('navigation_ACTION_6',
+        #                         SimpleActionState('navigate_2d',
+        #                             Action.Navigate2DAction,
+        #                             goal=Action.Navigate2DGoal(goal="liftpassing")),
+        #                         transitions={'succeeded': 'move_to_point_ACTION_2',
+        #                                      'preempted': 'finish',
+        #                                      'aborted': 'finish'})
+
+        # smach.StateMachine.add('move_to_point_ACTION_2',
+        #                         SimpleActionState('move_to_point',
+        #                             Action.MoveToPointAction,
+        #                             goal=Action.MoveToPointActionGoal(**metadata.get("first_floor_coord")),
+        #                         transitions={'succeeded': 'finish',
+        #                                      'preempted': 'finish',
+        #                                      'aborted': 'finish'}))
 
     # Execute SMACH plan
     state_machine.execute()
