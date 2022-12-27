@@ -41,8 +41,6 @@ def main():
 
     # Open the container
     with state_machine:
-<<<<<<< HEAD
-=======
         # Add states to the container
         smach.StateMachine.add('move_to_point_ACTION_1',
                                 SimpleActionState('move_to_point',
@@ -52,7 +50,6 @@ def main():
                                 transitions={'succeeded': 'door_coord_ACTION_1',
                                              'preempted': 'finish',
                                              'aborted': 'finish'})
->>>>>>> 6dc32ae614aa3ffaa80d50647b7a371d484aa016
 
         smach.StateMachine.add('door_coord_ACTION_1',
                         SimpleActionState('door_coord',
