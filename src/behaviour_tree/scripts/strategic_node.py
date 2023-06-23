@@ -13,7 +13,7 @@ if __name__=="__main__":
                                                   PlaceObject(f"place_object")])
     tree = py_trees.trees.BehaviourTree(root)
     ros_tree = py_trees_ros.trees.BehaviourTree(root)
-    ros_tree.setup(timeout=10.0)
+    ros_tree.setup(timeout=3.0)
     py_trees.logging.level = py_trees.logging.Level.INFO
 
     done = False
@@ -26,4 +26,3 @@ if __name__=="__main__":
             print("Behavior tree failed.")
             done = True
         rospy.sleep(0.5)
-    rospy.spin()
