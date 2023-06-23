@@ -9,8 +9,7 @@ RUN apt-get update && \
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git \
-                       python3-pip \
-                       ros-noetic-smach-viewer && \
+                       python3-pip && \
     rm -rf /var/lib/apt/lists/*
 
 ARG USER=docker_user
@@ -25,13 +24,8 @@ RUN useradd -m ${USER} --uid=${UID} \
     && usermod -s /bin/bash ${USER} \
     && usermod -a -G sudo ${USER}
 
-RUN pip3 install pre-commit pylint && \
-    echo PATH=$PATH:/home/docker_user/.local/bin >> ~/.bashrc
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ros-noetic-actionlib-tools && \
     rm -rf /var/lib/apt/lists/*
-
-RUN pip3 install flask
 
 WORKDIR /home/${USER}

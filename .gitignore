@@ -4,4 +4,3 @@ __pycache__/
 build/
 devel/
 src/CMakeLists.txt
-src/state_machine/scripts/random_scenario_for_test.py

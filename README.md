@@ -1,3 +1,5 @@
-# strategic_node  
-rosrun actionlib_tools axclient.py /pp  
-rosrun smach_viewer smach_viewer.py  
+Пример манипулирования объектом с помощью behaviour_tree.
+
+### Установка
+
+Пример для ros-noetic
