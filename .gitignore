@@ -1,0 +1,7 @@
+.vscode/*
+.catkin_workspace
+__pycache__/
+build/
+devel/
+src/CMakeLists.txt
+src/communication_msgs/
