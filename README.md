@@ -11,7 +11,7 @@
 4) git clone -b behaviour_tree_example https://github.com/linukc/communication_msgs to a project workspace
 5) pip install termcolor
 6) clone move_base_msgs from https://github.com/ros-planning/navigation_msgs
-7) (optionally) https://github.com/splintered-reality/rqt_py_trees/tree/release/0.4.x
+7) (optionally) apt install ros-noetic-rqt-py-trees (https://github.com/splintered-reality/rqt_py_trees/tree/release/0.4.x)
 
 ### Особенности
 
